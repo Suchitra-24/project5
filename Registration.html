@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Website Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+    background-color: #f2f2f2;
+    background-image: url('background1.jpg');
+    background-size:cover;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+#registration-form {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#registration-form label {
+    font-weight: bold;
+}
+
+#registration-form input[type="text"], #registration-form input[type="email"], #registration-form input[type="password"], #registration-form input[type="tel"] {
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#registration-form textarea {
+    height: 100px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#registration-form button[type="submit"] {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    background-color: #337ab7;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#registration-form button[type="submit"]:hover {
+    background-color: #23527c;
+}
+
+    </style>
+<script>
+    $(document).ready(function() {
+        $('#registration-form').submit(function(event) {
+            event.preventDefault();
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var password = $('#password').val();
+            var confirmPassword = $('#confirm-password').val();
+            var phone = $('#phone').val();
+            var address = $('#address').val();
+    
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+    
+            // Send AJAX request to server to register user
+            $.ajax({
+                type: 'POST',
+                url: '/register',
+                data: {
+                    name: name,
+                    email: email,
+                    password: password,
+                    phone: phone,
+                    address: address
+                },
+                success: function(data) {
+                    alert('Registration successful');
+                    window.location.href = '/login';
+                },
+                error: function(xhr, status, error) {
+                    alert('Error: ' + error);
+                }
+            });
+        });
+    });
+</script>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2>Register with us</h2>
+                <form id="registration-form">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password:</label>
+                        <input type="password" class="form-control" id="confirm-password" name="confirm-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <textarea class="form-control" id="address" name="address" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
+</body>
+</html>
